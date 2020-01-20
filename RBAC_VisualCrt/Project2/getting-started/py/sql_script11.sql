@@ -1,0 +1,109 @@
+--Create Roles as !Securityadmin!: 
+ USE ROLE SECURITYADMIN; 
+ 
+CREATE ROLE IF NOT EXISTS rl_role1;
+CREATE ROLE IF NOT EXISTS rl_role2;
+CREATE ROLE IF NOT EXISTS rl_role3;
+ 
+ --Grant role to Parent Role 
+GRANT ROLE rl_role1 TO ROLE rl_sysadmin;
+GRANT ROLE rl_role2 TO ROLE rl_role1;
+GRANT ROLE rl_role3 TO ROLE rl_role1;
+ 
+ -- RBAC script: 
+
+--New Role :::
+
+--New Schema: sc_stage
+USE ROLE SYSADMIN;-- Or role assigned to perform this 
+ GRANT USAGE ON DATABASE db_prod TO ROLE RL_ROLE1 ;
+USE ROLE MNGD_SCHEMA;
+GRANT ALL ON SCHEMA db_prod.sc_stage TO ROLE RL_ROLE1;
+
+GRANT ALL ON ALL TABLES IN SCHEMA db_prod.sc_stage TO ROLE RL_ROLE1;
+GRANT ALL ON FUTURE TABLES IN SCHEMA db_prod.sc_stage TO ROLE RL_ROLE1;
+
+--New Schema: sc_dmz
+USE ROLE SYSADMIN;-- Or role assigned to perform this 
+ GRANT USAGE ON DATABASE db_prod TO ROLE RL_ROLE1 ;
+USE ROLE MNGD_SCHEMA;
+GRANT ALL ON SCHEMA db_prod.sc_dmz TO ROLE RL_ROLE1;
+
+GRANT ALL ON ALL TABLES IN SCHEMA db_prod.sc_dmz TO ROLE RL_ROLE1;
+GRANT ALL ON FUTURE TABLES IN SCHEMA db_prod.sc_dmz TO ROLE RL_ROLE1;
+
+--New Schema: sc_stage
+USE ROLE SYSADMIN;-- Or role assigned to perform this 
+ GRANT USAGE ON DATABASE db_test TO ROLE RL_ROLE1 ;
+USE ROLE MNGD_SCHEMA;
+GRANT ALL ON SCHEMA db_test.sc_stage TO ROLE RL_ROLE1;
+
+GRANT ALL ON ALL TABLES IN SCHEMA db_test.sc_stage TO ROLE RL_ROLE1;
+GRANT ALL ON FUTURE TABLES IN SCHEMA db_test.sc_stage TO ROLE RL_ROLE1;
+
+USE ROLE SYSADMIN; 
+ GRANT USAGE, OPERATE ON WAREHOUSES WH_SMALL TO ROLE RL_ROLE1;
+
+--New Role :::
+
+--New Schema: sc_stage
+USE ROLE SYSADMIN;-- Or role assigned to perform this 
+ GRANT USAGE ON DATABASE db_prod TO ROLE RL_ROLE2 ;
+USE ROLE MNGD_SCHEMA;
+GRANT USAGE ON SCHEMA db_prod.sc_stage TO ROLE RL_ROLE2;
+
+GRANT SELECT ON ALL TABLES IN SCHEMA db_prod.sc_stage TO ROLE RL_ROLE2;
+GRANT SELECT ON FUTURE TABLES IN SCHEMA db_prod.sc_stage TO ROLE RL_ROLE2;
+
+--New Schema: sc_dmz
+USE ROLE SYSADMIN;-- Or role assigned to perform this 
+ GRANT USAGE ON DATABASE db_prod TO ROLE RL_ROLE2 ;
+USE ROLE MNGD_SCHEMA;
+GRANT USAGE ON SCHEMA db_prod.sc_dmz TO ROLE RL_ROLE2;
+
+
+
+
+--New Schema: sc_stage
+USE ROLE SYSADMIN;-- Or role assigned to perform this 
+ GRANT USAGE ON DATABASE db_test TO ROLE RL_ROLE2 ;
+USE ROLE MNGD_SCHEMA;
+GRANT USAGE ON SCHEMA db_test.sc_stage TO ROLE RL_ROLE2;
+
+
+
+
+USE ROLE SYSADMIN; 
+ GRANT USAGE, OPERATE ON WAREHOUSES WH_SMALL TO ROLE RL_ROLE2;
+
+--New Role :::
+
+--New Schema: sc_stage
+USE ROLE SYSADMIN;-- Or role assigned to perform this 
+ GRANT USAGE ON DATABASE db_prod TO ROLE RL_ROLE3 ;
+USE ROLE MNGD_SCHEMA;
+GRANT USAGE ON SCHEMA db_prod.sc_stage TO ROLE RL_ROLE3;
+
+
+
+
+--New Schema: sc_dmz
+USE ROLE SYSADMIN;-- Or role assigned to perform this 
+ GRANT USAGE ON DATABASE db_prod TO ROLE RL_ROLE3 ;
+USE ROLE MNGD_SCHEMA;
+GRANT USAGE ON SCHEMA db_prod.sc_dmz TO ROLE RL_ROLE3;
+
+GRANT SELECT ON ALL TABLES IN SCHEMA db_prod.sc_dmz TO ROLE RL_ROLE3;
+GRANT SELECT ON FUTURE TABLES IN SCHEMA db_prod.sc_dmz TO ROLE RL_ROLE3;
+
+--New Schema: sc_stage
+USE ROLE SYSADMIN;-- Or role assigned to perform this 
+ GRANT USAGE ON DATABASE db_test TO ROLE RL_ROLE3 ;
+USE ROLE MNGD_SCHEMA;
+GRANT USAGE ON SCHEMA db_test.sc_stage TO ROLE RL_ROLE3;
+
+GRANT SELECT ON ALL TABLES IN SCHEMA db_test.sc_stage TO ROLE RL_ROLE3;
+GRANT SELECT ON FUTURE TABLES IN SCHEMA db_test.sc_stage TO ROLE RL_ROLE3;
+
+USE ROLE SYSADMIN; 
+ GRANT USAGE, OPERATE ON WAREHOUSES WH_SMALL TO ROLE RL_ROLE3;

@@ -1,0 +1,226 @@
+{
+    "elements": {
+        "nodes": [
+            {
+                "data": {
+                    "id": "DV_ADMIN_ROLE"
+                },
+                "position": {
+                    "x": 332.43954407805245,
+                    "y": 434.3901119150756
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "DATA_VAULT.MA_SCHEMA->RW"
+                },
+                "position": {
+                    "x": 277.0034996850895,
+                    "y": 574.5549834695416
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "DV_DEV_ROLE"
+                },
+                "position": {
+                    "x": 239.68386638382063,
+                    "y": 355.9947039424966
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "e"
+                },
+                "position": {
+                    "x": 359.43754907030745,
+                    "y": 144.70740311086155
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "DATA_VAULT.FED_SCHEMA->RW"
+                },
+                "position": {
+                    "x": 242.3143685370415,
+                    "y": 119.07056444733995
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "g"
+                },
+                "position": {
+                    "x": 311.1083546832341,
+                    "y": 283.87320297817973
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            }
+        ],
+        "edges": [
+            {
+                "data": {
+                    "id": "ab",
+                    "source": "DV_ADMIN_ROLE",
+                    "target": "DATA_VAULT.MA_SCHEMA->RW"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "bd",
+                    "source": "DV_DEV_ROLE",
+                    "target": "DATA_VAULT.MA_SCHEMA->RW"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "ad",
+                    "source": "DV_ADMIN_ROLE",
+                    "target": "DV_DEV_ROLE"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "df",
+                    "source": "DV_DEV_ROLE",
+                    "target": "DATA_VAULT.FED_SCHEMA->RW"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "dg",
+                    "source": "DV_DEV_ROLE",
+                    "target": "g"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            }
+        ]
+    },
+    "style": [
+        {
+            "selector": "node",
+            "style": {
+                "shape": "diamond",
+                "background-color": "#ccc",
+                "border-color": "#888",
+                "width": "label",
+                "height": "label",
+                "padding-right": "3px",
+                "padding-left": "3px",
+                "padding-top": "3px",
+                "padding-bottom": "3px",
+                "text-wrap": "wrap",
+                "text-valign": "center",
+                "text-halign": "center",
+                "text-max-width": "100px",
+                "label": "data(id)",
+                "font-size": "10px"
+            }
+        },
+        {
+            "selector": "edge",
+            "style": {
+                "width": "3px",
+                "line-color": "#1100cc",
+                "target-arrow-color": "#1100cc",
+                "target-arrow-shape": "triangle"
+            }
+        }
+    ],
+    "zoomingEnabled": true,
+    "userZoomingEnabled": true,
+    "zoom": 1.1215316190223388,
+    "minZoom": 0.00001,
+    "maxZoom": 100000,
+    "panningEnabled": true,
+    "userPanningEnabled": true,
+    "pan": {
+        "x": -1.554008125401765,
+        "y": -88.96149187523855
+    },
+    "boxSelectionEnabled": true,
+    "renderer": {
+        "name": "canvas"
+    },
+    "wheelSensitivity": 0.5
+}

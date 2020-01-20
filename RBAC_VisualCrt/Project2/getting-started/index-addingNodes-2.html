@@ -1,0 +1,429 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  </meta>
+  <title>Visual RBAC</title>
+  <script src="cytoscape.js"></script>
+
+</head>
+
+
+<style>
+arr{
+  text-align: center;
+  color: red;
+  line-color: #110000;
+}
+  #cy {
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    top: 190px;
+    left: 15px;
+  }
+</style>
+
+<body>
+  <fieldset>
+    <table style="width:100%">
+      <tr>
+        <th>
+          
+          <input id="node_type" type="radio" name="node_type" value="role" checked onclick="rdoCheck()">role<br>
+          <input id="node_type" type="radio" name="node_type" value="schema" onclick="rdoCheck()">schema<br>
+          <input id="node_type" type="radio" name="node_type" value="database" onclick="rdoCheck()">database<br>
+          <input id="node_type" type="radio" name="node_type" value="user" onclick="rdoCheck()">user<br>
+          <input type="text" id="obj_id" placeholder="enter new node name">
+          <br/>
+          <input type="text" id="db_sch_id" placeholder="enter DB for Schema" disabled>
+          <br>
+          <button id="addObject" onclick="addObject()">Add Object/Node</button>
+        </th>
+        <th>
+          
+          <input id="edge_type" type="radio" name="edge_type" value="R">ReadOnly<br>
+          <input id="edge_type" type="radio" name="edge_type" value="RW">ReadWrite<br>
+          <input id="edge_type" type="radio" name="edge_type" value="RWO">RWOperate<br>
+          <input id="edge_type" type="radio" name="edge_type" value="H" checked>Hierarchy<br>
+          <br>
+          from 
+          <input type="text" id="from_node" placeholder="enter node id">to
+          <input type="text" id="node_id" placeholder="enter new node name">
+            <br/>
+            <button id="addBtn" onclick="addNodeEdge()">Add Connect</button>
+        </th>
+        <th><button id="destroyBtn" onclick="destroy()">destroy</button>
+        <br />
+        <button id="addBtn" onclick="addNode()">Add Node</button>
+        <br/>
+        <input id="deleteAllow" type="checkbox" name="deleteAllow" '>Allow Remove Objects<br>
+        <p>
+          <button onclick="download( 'json_elements.json', 'json/plain')">Create file</button>
+          <a href="" id="a" >Download</a>
+          
+      </p>
+      </th>
+      </tr>
+      
+  </fieldset>
+  </table>
+  <div id="cy"></div>
+
+  <script>
+
+    var cy = cytoscape({
+      container: document.getElementById('cy'),
+      elements: [
+        { data: { id: 'a', label: 'hexagon' }
+           
+        },
+        { data: { id: 'd', label: 'USR'} },
+        { data: { id: 'j', parent: 'db' }, position: { x: 215, y: 85 } },
+        { data: { id: 'db' } },
+        { data: { id: 'c', parent: 'db' }, position: { x: 300, y: 85 } },
+        {
+          data: {
+            id: 'ab',
+            source: 'a',
+            target: 'd',
+            label: 'R'
+          }
+        }],
+      style: [
+        {
+          selector: 'node',
+          style: {
+            shape: 'hexagon',//'hexagon',
+            'background-color': 'red',
+            label: 'data(id)'
+          }
+        },
+        {
+      selector: 'edge',
+      style: {
+        'label': 'data(label)',
+        'width': 1,
+        'line-color': '#1100cc',
+        'target-arrow-color': '#1100cc',
+        'target-arrow-shape': 'triangle'
+      }
+    },
+    {
+      selector: ':parent',
+      css: {
+        'text-valign': 'top',
+        'text-halign': 'center',
+        'background-color': 'grey',
+      }
+    }
+    ]
+    });
+
+    function nodeTypeCase(expType) {
+      var retValType = '';
+      var retValName = '';
+      var retValColor = '';
+
+      switch (expType) {
+        case 'role':
+          // code block
+          retValType = 'hexagon';
+          retValName = 'rl_';
+          retValColor = 'red'
+          break;
+        case 'schema':
+          // code block
+          retValType = 'triangle';
+          retValName = 'sc_';
+          retValColor = 'blue';
+          break;
+        case 'database':
+          // code block
+          retValType = 'square';
+          retValName = 'db_';
+          retValColor = 'green';
+          break;
+        case 'user':
+          // code block
+          retValType = 'circle';
+          retValName = 'usr_';
+          retValColor = 'orange';
+          break;
+        default:
+          // code block
+          retValType = 'NONE';
+          retValName = 'NONE_';
+      }
+      return [retValType, retValName, retValColor];             // Function returns the product of a and b
+    }
+
+    function lineTypeCase(expType) {
+      var retValType = '';
+      var retValName = '';
+      var retValColor = '';
+
+      switch (expType) {
+        case 'R':
+          // code block
+          retValType = 'circle';
+          retValName = 'R';
+          retValColor = 'red'
+          break;
+        case 'RW':
+          // code block
+          retValType = 'square';
+          retValName = 'RW';
+          retValColor = 'blue';
+          break;
+        case 'RWO':
+          // code block
+          retValType = 'triangle';
+          retValName = 'RWO';
+          retValColor = 'green';
+          break;
+        case 'H':
+          // code block
+          retValType = 'octagon';
+          retValName = 'H';
+          retValColor = 'orange';
+          break;
+        default:
+          // code block
+          retValType = 'NONE';
+          retValName = 'NONE_';
+      }
+      return [retValType, retValName, retValColor];             // Function returns the product of a and b
+    }
+    
+    function addObject() {
+      var elem_id = document.getElementById('obj_id').value;
+      var elem_type = document.getElementById('node_type').value;
+      var elem_type1 = document.querySelector('input[name=node_type]:checked').value
+      //db_sch_id
+      var db_sch = document.getElementById('db_sch_id').value;
+
+      var values = nodeTypeCase(elem_type1);
+
+      //alert(elem_type1);//(values[1], values[0]);
+
+      if (elem_id.length === 0 || elem_type.length == 0) {
+        alert("please fill  input fields");
+        return;
+      }
+
+      if(elem_type1 == "schema")
+      {
+       if(db_sch.length != 0)
+          {
+            cy.add({
+            data: { id: db_sch + '.' + values[1] + elem_id,
+                    label:  elem_type1,
+                    parent: db_sch},
+            style: [
+            {
+                selector: 'node'
+            }]
+                }
+            ).css({ 'shape': values[0], 'background-color' : values[2] });
+            cy.$('#'+values[1] + elem_id).addClass(elem_type1);
+          }
+          else{alert('Select DB for Schema');}
+      }
+      else
+      {
+        document.getElementById("db_sch_id").setAttribute("disabled", true);
+        cy.add({
+        data: { id: values[1] + elem_id,
+                label:  elem_type1},
+        style: [
+          {
+            selector: 'node'
+          }]
+            }
+        ).css({ 'shape': values[0], 'background-color' : values[2] });
+        cy.$('#'+values[1] + elem_id).addClass(elem_type1);
+      }
+
+      
+      //var source = 'node_' + elem_id;
+      /*
+
+      cy.add({
+          data: {
+              id: 'edge' + i,
+              source: source,
+              target: (i % 2 == 0 ? 'a' : 'b')
+          }
+      });
+      */
+      cy.layout({
+        name: 'grid'
+      });
+    }
+
+  var addNodeEdge = function() {
+    var elem_id = document.getElementById('node_id').value;
+    var from_node = document.getElementById('from_node').value;
+    var edge_type1 = document.querySelector('input[name=edge_type]:checked').value
+    
+
+    var values = lineTypeCase(edge_type1);
+
+  //alert(edge_type1);
+
+    if (elem_id.length === 0 || from_node.length === 0) {
+      alert("please fill both input fields");
+      return;
+    }
+  cy.add([{
+      data: {
+        id: elem_id
+      }
+    }, {
+      data: {
+        id: from_node + '' + elem_id,
+        source: from_node + '',
+        target: elem_id + '',
+        label: edge_type1
+
+      }
+    }
+  ]).css({'label': values[1],'line-color': '#1100cc',
+        'target-arrow-color': '#1100cc',
+        'target-arrow-shape': 'triangle'});
+    cy.$('#'+from_node + '' + elem_id).addClass(values[1]);
+  ////cy.layout(options);
+    document.getElementById('node_id').value = "";
+    document.getElementById('from_node').value = "";
+
+};
+
+var rdoCheck = function() {
+    var checkBox = document.getElementById("node_type");
+    var elem_type1 = document.querySelector('input[name=node_type]:checked').value;
+    //alert(elem_type1);
+    if(elem_type1 == "schema")
+    {
+        
+        document.getElementById("db_sch_id").removeAttribute("disabled");//setAttribute("disabled", false);
+        //alert('in Schema');
+    }
+    else{
+        document.getElementById("db_sch_id").setAttribute("disabled",'');//setAttribute("disabled", false);
+        //alert('NOT in Schema');
+    }
+}
+
+cy.on('click', 'node', function(evt) {
+  var checkBox = document.getElementById("deleteAllow");
+  if (checkBox.checked == true){
+    //text.style.display = "block";
+    console.log('delAllow: TRUE' );
+    console.log('clicked ' + this.id());
+    cy.remove( this );
+  } else {
+    //text.style.display = "none"; from_node
+    console.log('delAllow: FALSE' );
+    //document.getElementById("demo").innerHTML = "Hello JavaScript!"
+    document.getElementById("from_node").innerHTML = 'NEWWWWWWW'
+    var fromText = document.getElementById("from_node").innerText;
+    console.log('fromText: ' + fromText);
+    var text_from_node = document.getElementById('from_node').value;
+    //document.getElementById('from_node').value = this.id();
+    if (text_from_node.length == 0)
+    {
+      document.getElementById('from_node').value = this.id();
+    }
+    else
+    {
+      document.getElementById('node_id').value = this.id();
+    }
+    console.log('this: ' + this.id());
+  }
+  //console.log(cy.elements().jsons());
+  //console.log(cy.edges().jsons());
+});
+
+cy.on('click', 'edge', function(evt) {
+  console.log('clicked N:' + this.id());
+  var checkBox = document.getElementById("deleteAllow");
+  if (checkBox.checked == true){
+    //text.style.display = "block";
+    console.log('delAllow: TRUE' );
+    console.log('clicked ' + this.id());
+    cy.remove( this );
+  } else {
+    //text.style.display = "none";
+    console.log('delAllow: FALSE' );
+  }
+});
+
+
+var deleteNode = function() {
+
+  //var collection = cy.elements("node[id:'a']");
+  var ej = cy.$('#ab');
+  var n1 = cy.nodes("#ab");
+  console.log('collection: ' + n1);
+  //cy.on('layoutstop', function() {
+    cy.nodes().forEach(function(ele){
+        console.log("loop", ele.id(), ele.position().x, ele.position().y);
+    });
+//});
+
+  //var node = cy.nodes('a');
+  //alert('Node remove:' + node);
+  //var node1 = cy.nodes("a");//("node[weight > 2]");
+    ///cy.remove( node );
+    //layout.run();
+/*
+  cy.remove( eles );
+  var n1 = cy.nodes("#n1");
+  n1.data("weight", 56);
+  console.log( n1.data("a") ); // 56
+
+  n1.removeData("a");
+  console.log( n1.data("weight") ); // undefined
+
+  */
+};
+
+
+    var addNode = function () {
+      //alert("From addNode!");
+      for (var i = 0; i < 10; i++) {
+        cy.add({
+          data: { id: 'node' + i }
+        }
+        );
+        var source = 'node' + i;
+        cy.add({
+          data: {
+            id: 'edge' + i,
+            source: source,
+            target: (i % 2 == 0 ? 'a' : 'b')
+          }
+        });
+      }
+      cy.layout({
+        name: 'random'
+      });
+    }
+
+
+function download(name, type) {
+  var a = document.getElementById("a");
+  var file = new Blob([JSON.stringify(cy.json())], {type: type});
+  a.href = URL.createObjectURL(file);
+  a.download = name;
+  //console.log(cy.elements().jsons());
+  //console.log(cy.edges().jsons());
+};
+    cy.layout({
+      name: 'circle'
+    });
+  </script>
+</body>

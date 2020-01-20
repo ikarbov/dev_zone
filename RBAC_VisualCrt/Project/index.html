@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/2.5.1/cytoscape.min.js"></script>
+  <style>
+    #cy {
+      width: 1000px;
+      height: 600px;
+      background-color: #eee;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>RBAC</h3>
+  <button id="addBtn" onclick="addNode()">Add Node</button>
+  <input type="text" id="node_id" placeholder="enter new node name">
+  from 
+  <input type="text" id="from_node" placeholder="enter node id">
+  <button id="destroyBtn" onclick="destroy()">destroy</button>
+  <br/>
+  <p>
+    <button id="addSchema" onclick="addSchema()">Add Schema</button>
+  </p>
+  <p>
+      <button onclick="download( 'json_elements.json', 'json/plain')">Create file</button>
+      <a href="" id="a" >Download</a>
+      
+  </p>
+  <div id="cy"></div>
+
+  <script src="script.js">
+  
+
+  
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,351 @@
+{
+    "elements": {
+        "nodes": [
+            {
+                "data": {
+                    "id": "rl_role1",
+                    "label": "role"
+                },
+                "position": {
+                    "x": 174.25,
+                    "y": 179.25
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "role"
+            },
+            {
+                "data": {
+                    "id": "rl_role2",
+                    "label": "role"
+                },
+                "position": {
+                    "x": 522.75,
+                    "y": 179.25
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "role"
+            },
+            {
+                "data": {
+                    "id": "rl_role3",
+                    "label": "role"
+                },
+                "position": {
+                    "x": 871.25,
+                    "y": 179.25
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "role"
+            },
+            {
+                "data": {
+                    "id": "db_prod",
+                    "label": "database"
+                },
+                "position": {
+                    "x": 280.6875621659047,
+                    "y": 528.6567695146402
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "database"
+            },
+            {
+                "data": {
+                    "id": "db_prod.sc_stage",
+                    "label": "schema",
+                    "parent": "db_prod"
+                },
+                "position": {
+                    "x": 382.6251243318094,
+                    "y": 535.5635390292805
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "db_prod.sc_dmz",
+                    "label": "schema",
+                    "parent": "db_prod"
+                },
+                "position": {
+                    "x": 174.25,
+                    "y": 537.75
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "db_test",
+                    "label": "database"
+                },
+                "position": {
+                    "x": 652.9403325139842,
+                    "y": 525.756431517976
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "database"
+            },
+            {
+                "data": {
+                    "id": "db_test.sc_stage",
+                    "label": "schema",
+                    "parent": "db_test"
+                },
+                "position": {
+                    "x": 652.9403325139842,
+                    "y": 533.756431517976
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "rl_sysadmin",
+                    "label": "role"
+                },
+                "position": {
+                    "x": 99.72879167609658,
+                    "y": 48.10917492107444
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": true,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "role"
+            }
+        ],
+        "edges": [
+            {
+                "data": {
+                    "id": "rl_role2rl_role1",
+                    "source": "rl_role2",
+                    "target": "rl_role1",
+                    "label": "H"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "H"
+            },
+            {
+                "data": {
+                    "id": "rl_role3rl_role1",
+                    "source": "rl_role3",
+                    "target": "rl_role1",
+                    "label": "H"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "H"
+            },
+            {
+                "data": {
+                    "id": "rl_role2db_prod.sc_stage",
+                    "source": "rl_role2",
+                    "target": "db_prod.sc_stage",
+                    "label": "R"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "rl_role3db_prod.sc_dmz",
+                    "source": "rl_role3",
+                    "target": "db_prod.sc_dmz",
+                    "label": "R"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "rl_role1db_prod.sc_stage",
+                    "source": "rl_role1",
+                    "target": "db_prod.sc_stage",
+                    "label": "RWO"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "rl_role1db_prod.sc_dmz",
+                    "source": "rl_role1",
+                    "target": "db_prod.sc_dmz",
+                    "label": "RWO"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "rl_role1db_test.sc_stage",
+                    "source": "rl_role1",
+                    "target": "db_test.sc_stage",
+                    "label": "RWO"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "rl_role3db_test.sc_stage",
+                    "source": "rl_role3",
+                    "target": "db_test.sc_stage",
+                    "label": "R"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "rl_role1rl_sysadmin",
+                    "source": "rl_role1",
+                    "target": "rl_sysadmin",
+                    "label": "H"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "H"
+            }
+        ]
+    },
+    "style": [
+        {
+            "selector": "node",
+            "style": {
+                "shape": "hexagon",
+                "background-color": "red",
+                "label": "data(id)"
+            }
+        },
+        {
+            "selector": "edge",
+            "style": {
+                "label": "data(label)",
+                "width": "1px",
+                "line-color": "#1100cc",
+                "target-arrow-color": "#1100cc",
+                "target-arrow-shape": "triangle"
+            }
+        },
+        {
+            "selector": ":parent",
+            "style": {
+                "text-valign": "top",
+                "text-halign": "center",
+                "background-color": "grey"
+            }
+        }
+    ],
+    "zoomingEnabled": true,
+    "userZoomingEnabled": true,
+    "zoom": 0.8904486261531007,
+    "minZoom": 1e-50,
+    "maxZoom": 1e+50,
+    "panningEnabled": true,
+    "userPanningEnabled": true,
+    "pan": {
+        "x": 121.00059003208617,
+        "y": 74.49557796333721
+    },
+    "boxSelectionEnabled": true,
+    "renderer": {
+        "name": "canvas"
+    }
+}

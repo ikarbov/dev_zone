@@ -1,0 +1,301 @@
+{
+    "elements": {
+        "nodes": [
+            {
+                "data": {
+                    "id": "rl_role1",
+                    "label": "role"
+                },
+                "position": {
+                    "x": 566.0725795478154,
+                    "y": 9.734564664262757
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "role"
+            },
+            {
+                "data": {
+                    "id": "rl_role3",
+                    "label": "role"
+                },
+                "position": {
+                    "x": 783.964490732703,
+                    "y": 123.87495779032584
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "role"
+            },
+            {
+                "data": {
+                    "id": "rl_role2",
+                    "label": "role"
+                },
+                "position": {
+                    "x": 326.0548663791183,
+                    "y": 171.33927968433227
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "role"
+            },
+            {
+                "data": {
+                    "id": "db_prod",
+                    "label": "database"
+                },
+                "position": {
+                    "x": 587.9904058634376,
+                    "y": 390.7473430246954
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "database"
+            },
+            {
+                "data": {
+                    "id": "sc_stage",
+                    "label": "schema",
+                    "parent": "db_prod"
+                },
+                "position": {
+                    "x": 673.432355260449,
+                    "y": 396.4871372202188
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": true,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "schema"
+            },
+            {
+                "data": {
+                    "id": "sc_dmz",
+                    "label": "schema",
+                    "parent": "db_prod"
+                },
+                "position": {
+                    "x": 498.04845646642616,
+                    "y": 401.007548829172
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "schema"
+            },
+            {
+                "data": {
+                    "id": "sc_mart",
+                    "label": "schema",
+                    "parent": "db_prod"
+                },
+                "position": {
+                    "x": 584.8484309916771,
+                    "y": 398.74734302469545
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "schema"
+            }
+        ],
+        "edges": [
+            {
+                "data": {
+                    "id": "rl_role3rl_role1",
+                    "source": "rl_role3",
+                    "target": "rl_role1",
+                    "label": "H"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "H"
+            },
+            {
+                "data": {
+                    "id": "rl_role2rl_role1",
+                    "source": "rl_role2",
+                    "target": "rl_role1",
+                    "label": "H"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "H"
+            },
+            {
+                "data": {
+                    "id": "rl_role2sc_dmz",
+                    "source": "rl_role2",
+                    "target": "sc_dmz",
+                    "label": "R"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "R"
+            },
+            {
+                "data": {
+                    "id": "rl_role3sc_mart",
+                    "source": "rl_role3",
+                    "target": "sc_mart",
+                    "label": "RW"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "RW"
+            },
+            {
+                "data": {
+                    "id": "rl_role3sc_stage",
+                    "source": "rl_role3",
+                    "target": "sc_stage",
+                    "label": "RW"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "RW"
+            },
+            {
+                "data": {
+                    "id": "rl_role1sc_dmz",
+                    "source": "rl_role1",
+                    "target": "sc_dmz",
+                    "label": "RWO"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "RWO"
+            },
+            {
+                "data": {
+                    "id": "rl_role1sc_mart",
+                    "source": "rl_role1",
+                    "target": "sc_mart",
+                    "label": "RWO"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "RWO"
+            },
+            {
+                "data": {
+                    "id": "rl_role1sc_stage",
+                    "source": "rl_role1",
+                    "target": "sc_stage",
+                    "label": "RWO"
+                },
+                "position": {},
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "classes": "RWO"
+            }
+        ]
+    },
+    "style": [
+        {
+            "selector": "node",
+            "style": {
+                "shape": "hexagon",
+                "background-color": "red",
+                "label": "data(id)"
+            }
+        },
+        {
+            "selector": "edge",
+            "style": {
+                "label": "data(label)",
+                "width": "1px",
+                "line-color": "#1100cc",
+                "target-arrow-color": "#1100cc",
+                "target-arrow-shape": "triangle"
+            }
+        },
+        {
+            "selector": ":parent",
+            "style": {
+                "text-valign": "top",
+                "text-halign": "center",
+                "background-color": "grey"
+            }
+        }
+    ],
+    "zoomingEnabled": true,
+    "userZoomingEnabled": true,
+    "zoom": 0.8848751720037439,
+    "minZoom": 1e-50,
+    "maxZoom": 1e+50,
+    "panningEnabled": true,
+    "userPanningEnabled": true,
+    "pan": {
+        "x": -11.200102990375854,
+        "y": 43.77679735067005
+    },
+    "boxSelectionEnabled": true,
+    "renderer": {
+        "name": "canvas"
+    }
+}
