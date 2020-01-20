@@ -1,0 +1,90 @@
+<html>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jdropdown.min.css" type="text/css" />
+
+<!-- Optional CSS addon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.bootstrap.min.css" type="text/css" />
+
+<div id='my-spreadsheet'></div>
+<p>(A)dmin - separate, (R)ead, (W)rite, RW, RW(O)perate</p>
+<p><button id='download'>Export my spreadsheet as CSV</button></p>
+
+<p id="demo"></p>
+<textarea id='txt' style='width:400px;height:120px;display:none'></textarea>
+
+<script>
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+    function(m,key,value) {
+      vars[key] = value;
+    });
+    
+    return vars;
+  }
+
+ //data_ins = getUrlVars()["par1"].split('~');
+ //data_tbl_header = getUrlVars()["par2"].split('~');
+
+ data_tbl_header = getUrlVars()["p_roles"].split('~');
+ data_ins = getUrlVars()["p_db"].split('~');
+
+ //file:///Users/ikarbovskyy/OneDrive%20-%20Snowflake%20Computing/Snowflake/ProServ/PS-Group/Auto-RBAC-App-Flow_MngdSchma/1/firstPage-3.html?p_roles=DV_ANALYST_ROLE~DV_ETL_ROLE~DV_ADMIN_ROLE~DV_DMZ_ROLE~DV_WS_ADMIN_ROLE&par2=DATA_VAULT.MA.DV_ADMIN_ROLE~DATA_VAULT.COMM.DV_ADMIN_ROLE~DATA_VAULT.FEP.DV_ADMIN_ROLE~DATA_VAULT.FORD.DV_ADMIN_ROLE~DATA_VAULT.MA.DV_ADMIN_ROLE~DATA_VAULT.COMM.DV_ADMIN_ROLE~DATA_VAULT.FEP.DV_ADMIN_ROLE~DATA_VAULT.FORD.DV_ADMIN_ROLE
+
+console.log(data_ins);
+
+data = [
+    ['dynamic_prod_admin1', 'S', 'S',''],
+    ['dynamic_prod_analyst1', 'R', 'R',''],
+    ['dynamic_prod_devops1', 'RWA', 'RWA',''],
+    ['dynamic_dev_admin1', '', 'S','S'],
+    ['dynamic_dev_developer1','', 'R','RWA'],
+    ['dynamic_prod_devops1','', 'RWA','RWA']
+];
+
+var copy = [];
+var iC = 0;
+var data_ins_split = data_ins[0].split(',');
+data_ins.forEach(function(item){
+//data_ins_split.forEach(function(item){
+  
+  var array_ins = [[item]];
+  console.log('iC' + iC + ':' + item);
+  copy.push(array_ins);
+  iC++;
+});
+//console.log(copy);
+data = copy;// ROles to table column Roles
+//
+//HEader process
+//data_tbl_header
+
+var init_tbl_hrd = ['DB_NAME.SCHEMA(MNGD_ROLE)'];
+var col_widths = [ 300 ];
+data_tbl_header.forEach(function(item){
+  init_tbl_hrd.push(item);
+  col_widths.push(200);
+});
+console.log('data_tbl_header:' + data_tbl_header);
+console.log(col_widths);
+var tbl_header = init_tbl_hrd;//['Roles', 'PROD', 'QA111', 'DEV1'];//data_tbl_header
+//var col_widths = [ 300, 300, 300 ];
+$('#my-spreadsheet').jexcel({
+    data:data,
+    colHeaders: tbl_header
+    ,colWidths: col_widths
+});
+
+
+$('#download').on('click', function () {
+    $('#my-spreadsheet').jexcel('download');
+});
+
+
+</script>
+</html>

@@ -1,0 +1,102 @@
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jdropdown.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jdropdown.min.css" type="text/css" />
+
+<!-- Optional CSS addon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.bootstrap.min.css" type="text/css" />
+
+<div id='my-spreadsheet'></div>
+<br/>
+<div></div>
+<div id="my"></div>
+<p><button id='download'>Export my spreadsheet as CSV</button></p>
+<button id='json' style='display:none;'>Convert to JSON</button><br/>
+<br>
+<button onclick="page2param()">Continue</button>
+
+</p>
+
+</div>
+<p id="demo"></p>
+<textarea id='txt' style='width:400px;height:120px;display:none;'></textarea>
+
+<script>
+
+
+data = [
+    ['ACC_PROD_ADMIN', 'WH_PROD_SMALL', 'SYSADMIN'],
+    ['ACC_PROD_ANALYST', 'WH_PROD_LARGE', 'SYSADMIN'],
+    ['ACC_PROD_DEVOPS', 'WH_PROD_MID', 'FN_PROD_MANAGER'],
+    ['ACC_DEV_ADMIN', 'WH_PROD_SMALL', 'SYSADMIN'],
+    ['ACC_DEV_DEVELOPER','WH_PROD_MID', 'FN_DEV_MANAGER'],
+    ['ACC_ELT_PROD','WH_PROD_MID','SYSADMIN'],
+    ['ACC_DEV_DEVOPS','WH_PROD_SMALL', 'FN_DEV_MANAGER'],
+    ['FN_DEV_MANAGER','WH_PROD_SMALL', 'SYSADMIN'],
+    ['FN_PROD_MANAGER','WH_PROD_SMALL', 'SYSADMIN']
+
+];
+
+data1 = [
+['DV_ANALYST_ROLE','DV_ANALYST_WH','SYSADMIN'],
+['DV_ETL_ROLE','DV_ETL_WH','SYSADMIN'],
+['DV_ADMIN_ROLE','DV_ADMIN_WH','SYSADMIN'],
+['DV_DMZ_ROLE','DV_DMZ_WH','SYSADMIN'],
+['DV_WS_ADMIN_ROLE','DV_ADMIN_WH','SYSADMIN']
+];
+
+var paramOut = "";
+
+//document.getElementById("txt").innerHTML = "Hello World";
+function page2param() {
+  //document.getElementById("txt").innerHTML = "Hello World";
+  var results = data;//json["result"];
+// you can loop through all, assuming that each result set is the same. 
+if (results.length > 0) { 
+    // iterating through the results array
+    for(var i = 0; i < results.length; i++) {
+        // get i-th object in the results array  
+        var columnsIn = results[i];
+        // loop through every key in the object
+        for(var key in columnsIn){
+            if(key == 0)
+            {
+                paramOut = paramOut +results[i][key] + "~";
+                //console.log(key + ' : ' + results[i][key]); // here is your column name you are looking for + its value
+            }
+        } 
+    }
+    document.getElementById("demo").value = + 'p_roles=' + paramOut;
+}
+else {
+    console.log("No columns");
+}
+  paramOut = paramOut.substring(0, paramOut.length - 1); 
+  window.location.href='1/auto-rbac2.html?p_roles=' + paramOut ;
+  
+}
+
+$('#my-spreadsheet').jexcel({
+    data:data,
+    colHeaders: ['Roles', 'Warehouse', 'GrantingTo(Parent)' ],
+    colWidths: [ 300, 300, 300 ]
+});
+
+
+$('#download').on('click', function () {
+    $('#my-spreadsheet').jexcel('download');
+});
+
+
+$('#json').on('click', function () {
+  var data = $('#my-spreadsheet').jexcel('getData');
+	$('#txt').val(JSON.stringify(data));
+});
+
+
+
+</script>
+</html>

@@ -1,0 +1,123 @@
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jdropdown.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jdropdown.min.css" type="text/css" />
+
+<!-- Optional CSS addon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.bootstrap.min.css" type="text/css" />
+
+<div id='my-spreadsheet'></div>
+<br/>
+<div></div>
+<div id="my"></div>
+<p><button id='download' style='display:none;'>Export my spreadsheet as CSV</button></p>
+<button id='json' style='display:none;'>Convert to JSON</button><br/>
+<br>
+<button onclick="page2param()">Continue</button>
+
+</p>
+
+</div>
+<p id="demo"></p>
+<textarea id='txt' style='width:400px;height:120px;display:none'></textarea>
+
+<script>
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+    function(m,key,value) {
+      vars[key] = value;
+    });
+    
+    return vars;
+  }
+
+ //var param1 = getUrlVars()["p_roles"].split('~');
+ var param1 = getUrlVars()["p_roles"];//.split('~');
+
+
+
+data =[
+['ARBAC_PROD_DB','FINANCE','ARBAC_P_ADMIN_ROLE'],
+['ARBAC_PROD_DB','COMMERCE','ARBAC_P_ADMIN_ROLE'],
+['ARBAC_PROD_DB','FEDERAL','ARBAC_P_ADMIN_ROLE'],
+['ARBAC_PROD_DB','PHI','ARBAC_P_ADMIN_ROLE'],
+['ARBAC_TEST_DB','FINANCE','ARBAC_T_ADMIN_ROLE'],
+['ARBAC_TEST_DB','COMMERCE','ARBAC_T_ADMIN_ROLE'],
+['ARBAC_TEST_DB','FEDERAL','ARBAC_T_ADMIN_ROLE'],
+['ARBAC_TEST_DB','PHI','ARBAC_T_ADMIN_ROLE'],
+];
+
+var paramOut = "";
+
+console.log("data: " + data);
+
+function page2param() {
+  var results = data;//json["result"];
+// you can loop through all, assuming that each result set is the same. 
+if (results.length > 0) { 
+    // iterating through the results array
+    for(var i = 0; i < results.length; i++) {
+        // get i-th object in the results array  
+        var columnsIn = results[i];
+        // loop through every key in the object
+        for(var key in columnsIn){
+            //if(key >= 0 && key < 2)
+            {
+                if(key != 2)
+                    paramOut = paramOut +results[i][key] + ".";
+                else
+                {
+                    paramOut = paramOut.substring(0, paramOut.length - 1); 
+                    paramOut = paramOut + "(" + results[i][key] + ")";
+                }
+                
+                //console.log('paramOut: ' + paramOut)
+                //console.log('KEY=' + key + ' : ' + results[i][key]); // here is your column name you are looking for + its value
+            }
+            
+        } 
+        
+        paramOut = paramOut + '~';
+    }
+    document.getElementById("demo").innerHTML = 'p_roles=' + param1 + '&' + 'p_db=' + paramOut;
+}
+else {
+    console.log("No columns");
+}
+  paramOut = paramOut.substring(0, paramOut.length - 1); 
+  window.location.href='auto-rbac3.html?p_roles=' + param1 + '&' + 'p_db=' + paramOut;
+  
+}
+
+$('#my-spreadsheet1').jexcel({
+    csv:'https://your-prepared-data.com/demo/tables.csv',
+    csvHeaders:true,
+    colWidths: [170, 200, 300]
+});
+
+
+$('#my-spreadsheet').jexcel({
+    data:data,
+    colHeaders: ['Database(s)','Schema(s)','(Managed_ROLE)' ],
+    colWidths: [ 300, 300, 300 ]
+});
+
+
+$('#download').on('click', function () {
+    $('#my-spreadsheet').jexcel('download');
+});
+
+
+$('#json').on('click', function () {
+  var data = $('#my-spreadsheet').jexcel('getData');
+	$('#txt').val(JSON.stringify(data));
+});
+
+
+</script>
+</html>
