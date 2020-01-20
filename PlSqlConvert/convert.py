@@ -16,7 +16,7 @@ def script_to_list(file_path, delimiter = ';'):
         return (
            file.read().split(delimiter)
            #... ... 
-          )# wewe
+          )# 
 
 
 def main():
