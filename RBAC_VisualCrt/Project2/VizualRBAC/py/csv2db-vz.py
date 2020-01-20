@@ -8,7 +8,6 @@ import os, sys
 import json
 import csv
 
-
 rolesDict = {} 
 dbSchema = {}
 
@@ -83,11 +82,6 @@ with open('elems_last.json') as json_file:
     print(rolesDict)
     print(dbSchema)  
 
-#con = snowflake.connector.connect(
-#  user='user---name',
-#  password='pass******',
-#  account='aws_cas2',
-#)
 
 con = snowflake.connector.connect(
   user='i',
@@ -101,7 +95,6 @@ cur.execute("USE DATABASE IKARBOV_DB;")
 cur.execute("USE schema RBAC_PS;")
 cur.execute("USE warehouse IGORKA_WH;")
 
-#header_in = 0 #No HEADER in FILE
 try:
 
     table1 = "create or replace TABLE ROLE_RBAC_MAIN_PY ( \
@@ -112,14 +105,12 @@ try:
     cur.execute(table1)
 
 
-    #process MAIN table as table1 // LINE: dynamic_prod_admin,WH_PROD_SMALL,SYSADMIN
     roles_to_sql = ''
     roles_to_hdr = ''
     line_count = 0
 
     for row in rolesDict:
         line_count += 1
-        #sql_cmd = "INSERT INTO ROLE_RBAC_MAIN_PY(ROLE, GRANTED_TO, ASSIGNED_WAREHOUSE) VALUES  ('"+ row[0]+"','"+ row[2] +"','"+ row[1] +"')"
         sql_cmd = "INSERT INTO ROLE_RBAC_MAIN_PY(ROLE, GRANTED_TO, ASSIGNED_WAREHOUSE) VALUES  ('"+ row +"','"+ rolesDict[row] +"','"+ 'WH_SMALL' +"')"
         
         roles_to_sql = roles_to_sql + ', ' + row + ' VARCHAR'
@@ -148,24 +139,11 @@ try:
     line_count = 0
         
     for row in dbSchema:
-        #if line_count == 0 and header_in == 1:
-        #    print(f'Column names are {", ".join(row)}')
-        #   line_count += 1
-        #else:
         line_count += 1
         print(len(row))
-        #cnt_cols = len(row)
         ind_cols = 0
         sql_cmd = "INSERT INTO RBAC_DB_ACCESS_MNG(DB_NAME, SCHEMA_NAME, SCHEMA_MNGR "+roles_to_hdr+") VALUES  ("
-        ####for colmn in row:
-        #print(colmn)
-        #if ind_cols == 0:
-        #ind_cols = ind_cols + 1
-        #Fix MANAGED ROle later
-        #res_start = row[0].index('(')
-        #res_end = row[0].index(')')
-        #sql_role_for_mngd_schema = row[0][res_start+1:res_end]
-        #sql_columnname = row[0][0:res_start].split('.')
+        
         sql_columnname = row.split('.')
 
         sql_dbname = sql_columnname[0]
@@ -173,10 +151,7 @@ try:
 
         ##sql_cmd = sql_cmd +  "'" + sql_dbname + "', '" + sql_schemanname + "', '" + sql_role_for_mngd_schema + "', '"
         sql_cmd = sql_cmd +  "'" + sql_dbname + "', '" + sql_schemanname + "', '" + 'mngd_schema' + "', '"
-        #fixed = dbSchema[row][0:pos]+s[pos+1:]
-        #vv = dbSchema[row]
-        #fixed = ''.join(dbSchema[row].split(',', 1))
-        #lines = fixed.split(',')
+        
         cnt_cols = len(dbSchema[row])
         ind_cols = 0
         for ln in dbSchema[row]:
@@ -191,14 +166,7 @@ try:
             else:
                 sql_cmd = sql_cmd + l + "', '" #colmn
             ind_cols = ind_cols + 1
-        #if ind_cols != 0:
-            #ind_cols = ind_cols + 1
-        #    if ind_cols == (cnt_cols - 1):
-        #        sql_cmd = sql_cmd + dbSchema[row]#colmn
-        #    else:
-        #        sql_cmd = sql_cmd + dbSchema[row] + "', '"
-        #ind_cols = ind_cols + 1
-        #print(sql_cmd)
+        
             
         sql_cmd = sql_cmd + "')"
         print(sql_cmd)
